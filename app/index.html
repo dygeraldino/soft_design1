@@ -1,11 +1,37 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
+
+    <!-- Título y descripción -->
+    <title>MediBot - Plataforma médica segura</title>
+    <meta name="description" content="MediBot es una plataforma digital para que los profesionales de la salud gestionen de forma segura la información clínica de sus pacientes." />
+
+    <!-- SEO básico -->
+    <meta name="author" content="Equipo MediBot" />
+    <meta name="keywords" content="medicina, salud, pacientes, historia clínica, formulario médico, plataforma médica" />
+
+    <!-- Seguridad básica -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; connect-src 'self' https://qnwltrlfhsuazrjtvcpr.supabase.co; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self';" />
+    <meta name="referrer" content="strict-origin" />
+
+    <!-- Apple/Android mobile settings -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="theme-color" content="#0d6efd" />
+
+    <!-- Estilos globales -->
+    <style>
+      body {
+        margin: 0;
+        font-family: 'Inter', system-ui, sans-serif;
+        background-color: #f9fafb;
+        color: #111827;
+      }
+    </style>
   </head>
+
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
