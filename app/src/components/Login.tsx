@@ -1,15 +1,30 @@
 import React, { useState } from "react";
+import { supabase } from "../lib/SupabaseClient";
 import "./Login.css";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Aquí iría la lógica para autenticar
-    console.log("Email:", email);
-    console.log("Password:", password);
+    setError(null);
+    setLoading(true);
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    setLoading(false);
+
+    if (error) {
+      setError(error.message);
+    } else {
+      console.log("Usuario autenticado:", data.user);
+    }
   };
 
   return (
@@ -34,7 +49,10 @@ const Login: React.FC = () => {
             required
           />
         </div>
-        <button type="submit">Entrar</button>
+        {error && <p className="error-message">{error}</p>}
+        <button type="submit" disabled={loading}>
+          {loading ? "Cargando..." : "Entrar"}
+        </button>
       </form>
     </div>
   );
