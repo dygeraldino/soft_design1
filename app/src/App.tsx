@@ -1,27 +1,31 @@
 import React from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Header from "./components/Header";
 import Login from "./components/Login";
 import { useAuth } from "./context/AuthContext";
 
-const App: React.FC = () => {
-  const { isAuthenticated } = useAuth();
+const Dashboard = () => <h2>Bienvenido, estás autenticado</h2>;
 
-  if (!isAuthenticated) {
-    return (
-      <div>
-        <Header />
-        <Login />
-        <p>Por favor, inicia sesión para continuar.</p>
-      </div>
-    );
-  }
+const App: React.FC = () => {
+  const { session } = useAuth();
 
   return (
-    <div>
+    <BrowserRouter>
       <Header />
-      {/* Aquí pondrías tus componentes con formularios, dashboard, etc */}
-      <h2>Bienvenido a la plataforma médica</h2>
-    </div>
+      <Routes>
+        {!session ? (
+          <>
+            <Route path="*" element={<Navigate to="/login" replace />} />
+            <Route path="/login" element={<Login />} />
+          </>
+        ) : (
+          <>
+            <Route path="*" element={<Navigate to="/dashboard" replace />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+          </>
+        )}
+      </Routes>
+    </BrowserRouter>
   );
 };
 
