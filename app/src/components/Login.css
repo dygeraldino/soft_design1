@@ -1,3 +1,12 @@
+/* Fondo gris claro para toda la página */
+body {
+  background-color: #f2f2f2;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Contenedor del formulario */
 .login-container {
   max-width: 400px;
   margin: 5rem auto;
@@ -5,13 +14,14 @@
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  font-family: 'Segoe UI', sans-serif;
 }
 
+/* Espaciado de campos */
 .login-form .form-group {
   margin-bottom: 1.5rem;
 }
 
+/* Estilo de inputs */
 .login-form input {
   width: 100%;
   padding: 0.6rem;
@@ -21,6 +31,7 @@
   box-sizing: border-box;
 }
 
+/* Botón de envío */
 button {
   padding: 0.6rem 1.2rem;
   background-color: #007bff;
@@ -30,6 +41,7 @@ button {
   cursor: pointer;
 }
 
+/* Hover del botón */
 button:hover {
   background-color: #0056b3;
 }
