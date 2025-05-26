@@ -10,3 +10,11 @@ input {
   padding: 0.5rem;
   margin-top: 0.3rem;
 }
+
+.ChatBot {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}

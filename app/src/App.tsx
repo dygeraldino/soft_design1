@@ -3,8 +3,16 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Header from "./components/Header";
 import Login from "./components/Login";
 import { useAuth } from "./context/AuthContext";
+// @ts-ignore
+import MainChatBot from "./components/MainChatBot";
+import './App.css';
 
-const Dashboard = () => <h2>Bienvenido, estás autenticado</h2>;
+const Dashboard = () => (
+  <div className="ChatBot" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+    <h2 style={{ marginBottom: "20px" }}>Bienvenido, estás autenticado</h2>
+    <MainChatBot />
+  </div>
+);
 
 const App: React.FC = () => {
   const { session } = useAuth();

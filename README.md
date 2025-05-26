@@ -20,6 +20,7 @@ cd app
 
 ```bash
 npm install
+npm install react-simple-chatbot
 ```
 
 3. Inicia el servidor de desarrollo:
