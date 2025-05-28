@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import ChatBot from 'react-simple-chatbot';
 import { ThemeProvider } from 'styled-components';
-import WikiComponent from './WikiComponent';
-
+import SaveForm from './SaveForm';
 
 const DiseñoChat = {
   background: '#f5f8fb',
@@ -18,28 +17,20 @@ const DiseñoChat = {
 
 export default class MainChatBot extends Component {
   validarNombre = (value) => {
-    // Verificar si el nombre tiene más de 100 caracteres
     if (value.length > 100) {
       return 'El nombre debe tener máximo 100 caracteres.';
     }
-
-    // Verificar si el nombre contiene números
     if (/\d/.test(value)) {
       return 'El nombre no puede contener números.';
     }
-
-    // Verificar si la primera letra no está en mayúscula
     if (value.charAt(0) !== value.charAt(0).toUpperCase()) {
       return 'El nombre debe comenzar con mayúscula.';
     }
-
     return true;
   };
 
   validarEdad = (value) => {
-    // Verificar si la edad es un número
     if (!/\d/.test(value)) {
-      // Aquí entra si NO hay ningún número en value
       return "No contiene números";
     }
     return true;
@@ -49,7 +40,6 @@ export default class MainChatBot extends Component {
     return (
       <div>
         <h1>MainChatBot</h1>
-
         <ThemeProvider theme={DiseñoChat}>
           <ChatBot
             steps={[
@@ -60,7 +50,7 @@ export default class MainChatBot extends Component {
               },
               {
                 id: 'ingresarNombre',
-                message: '¿Cual es el nombre del paciente?',
+                message: '¿Cuál es el nombre del paciente?',
                 trigger: 'leerNombre',
               },
               {
@@ -71,7 +61,7 @@ export default class MainChatBot extends Component {
               },
               {
                 id: 'ingresarEdad',
-                message: '¿Cual es la edad del paciente?',
+                message: '¿Cuál es la edad del paciente?',
                 trigger: 'leerEdad',
               },
               {
@@ -82,7 +72,7 @@ export default class MainChatBot extends Component {
               },
               {
                 id: 'ingresarSexo',
-                message: '¿Cual es el sexo del paciente?',
+                message: '¿Cuál es el sexo del paciente?',
                 trigger: 'selectSexo',
               },
               {
@@ -95,7 +85,7 @@ export default class MainChatBot extends Component {
               },
               {
                 id: 'ingresarDetallesConsulta',
-                message: '¿Cual es el motivo de la consulta? Añade los detalles que consideres necesarios.',
+                message: '¿Cuál es el motivo de la consulta? Añade los detalles que consideres necesarios.',
                 trigger: 'leerDetallesConsulta',
               },
               {
@@ -105,7 +95,7 @@ export default class MainChatBot extends Component {
               },
               {
                 id: 'ingresarTiempoConsulta',
-                message: '¿Desde hace cuanto tiempo el paciente presenta sintomas?',
+                message: '¿Desde hace cuánto tiempo el paciente presenta síntomas?',
                 trigger: 'leerTiempoConsulta',
               },
               {
@@ -115,7 +105,7 @@ export default class MainChatBot extends Component {
               },
               {
                 id: 'ingresarSintomasConsulta',
-                message: '¿Cual de los siguientes sintomas presenta el paciente?',
+                message: '¿Cuál de los siguientes síntomas presenta el paciente?',
                 trigger: 'preguntarFiebre',
               },
               {
@@ -165,7 +155,7 @@ export default class MainChatBot extends Component {
                   { value: 'Si', label: 'Si', trigger: 'preguntarDolorMuscular' },
                   { value: 'No', label: 'No', trigger: 'preguntarDolorMuscular' },
                 ],
-              }, 
+              },
               {
                 id: 'preguntarDolorMuscular',
                 message: '¿Dolor muscular?',
@@ -192,7 +182,7 @@ export default class MainChatBot extends Component {
               },
               {
                 id: 'preguntarNausea',
-                message: '¿Nausea?',
+                message: '¿Náusea?',
                 trigger: 'nausea',
               },
               {
@@ -251,8 +241,14 @@ export default class MainChatBot extends Component {
               {
                 id: 'finCHAT',
                 message: "Con esto hemos terminado el formulario del paciente. ¡Voy a guardar los datos!.",
-                end: true,
+                trigger: 'guardarDatos'
               },
+              {
+                id: 'guardarDatos',
+                component: <SaveForm steps={undefined} />, // steps serán inyectados automáticamente
+                asMessage: false,
+                end: true
+              }
             ]}
           />
         </ThemeProvider>
