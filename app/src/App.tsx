@@ -5,6 +5,7 @@ import Login from "./components/Login";
 import { useAuth } from "./context/AuthContext";
 // @ts-ignore
 import MainChatBot from "./components/MainChatBot";
+import EstadisticasFormularios from "./components/Stadistics";
 import './App.css';
 
 const Dashboard = () => (
@@ -28,8 +29,10 @@ const App: React.FC = () => {
           </>
         ) : (
           <>
-            <Route path="*" element={<Navigate to="/dashboard" replace />} />
+            <Route path="/" element={<Navigate to="/dashboard" replace />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/estadisticas" element={<EstadisticasFormularios />} />
+            <Route path="*" element={<Navigate to="/dashboard" replace />} />
           </>
         )}
       </Routes>

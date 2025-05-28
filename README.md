@@ -21,6 +21,8 @@ cd app
 ```bash
 npm install
 npm install react-simple-chatbot
+npm install recharts
+
 ```
 
 3. Inicia el servidor de desarrollo:
