@@ -1,7 +1,8 @@
-import React, { Component }  from "react";
+import React, { Component } from "react";
 import ChatBot from 'react-simple-chatbot';
 import { ThemeProvider } from 'styled-components';
 import WikiComponent from './WikiComponent';
+
 
 const DiseñoChat = {
   background: '#f5f8fb',
@@ -17,9 +18,9 @@ const DiseñoChat = {
 
 export default class MainChatBot extends Component {
   validarNombre = (value) => {
-    // Verificar si el nombre tiene más de 15 caracteres
-    if (value.length > 15) {
-      return 'El nombre debe tener máximo 15 caracteres.';
+    // Verificar si el nombre tiene más de 100 caracteres
+    if (value.length > 100) {
+      return 'El nombre debe tener máximo 100 caracteres.';
     }
 
     // Verificar si el nombre contiene números
@@ -35,6 +36,15 @@ export default class MainChatBot extends Component {
     return true;
   };
 
+  validarEdad = (value) => {
+    // Verificar si la edad es un número
+    if (!/\d/.test(value)) {
+      // Aquí entra si NO hay ningún número en value
+      return "No contiene números";
+    }
+    return true;
+  }
+
   render() {
     return (
       <div>
@@ -45,89 +55,202 @@ export default class MainChatBot extends Component {
             steps={[
               {
                 id: 'intro',
-                message: 'Bienvenido a mi ChatBot. ¿Cómo te llamas?',
-                trigger: '1',
+                message: 'Bienvenido Doctor/a. Creemos juntos el formulario de su paciente',
+                trigger: 'ingresarNombre',
               },
               {
-                id: '1',
+                id: 'ingresarNombre',
+                message: '¿Cual es el nombre del paciente?',
+                trigger: 'leerNombre',
+              },
+              {
+                id: 'leerNombre',
                 user: true,
                 validator: this.validarNombre,
-                trigger: '2',
+                trigger: 'ingresarEdad',
               },
               {
-                id: '2',
-                message: 'Encantado de conocerte {previousValue}',
-                trigger: '3',
+                id: 'ingresarEdad',
+                message: '¿Cual es la edad del paciente?',
+                trigger: 'leerEdad',
               },
               {
-                id: '3',
-                message: '¿Qué necesitas?',
-                trigger: 'select',
+                id: 'leerEdad',
+                user: true,
+                validator: this.validarEdad,
+                trigger: 'ingresarSexo',
               },
               {
-                id: 'select',
+                id: 'ingresarSexo',
+                message: '¿Cual es el sexo del paciente?',
+                trigger: 'selectSexo',
+              },
+              {
+                id: 'selectSexo',
                 options: [
-                  { value: 'y', label: 'Registrar Paciente', trigger: 'ayudareact' },
-                  { value: 'n', label: 'Consultar Paciente', trigger: 'programacion' },
-                  { value: 't', label: 'Nada mas', trigger: 'finCHAT' },
+                  { value: 'H', label: 'Hombre', trigger: 'ingresarDetallesConsulta' },
+                  { value: 'M', label: 'Mujer', trigger: 'ingresarDetallesConsulta' },
+                  { value: 'O', label: 'Otro', trigger: 'ingresarDetallesConsulta' },
                 ],
               },
-                  {
-                    id: 'ayudareact',
-                    message: "¿Que tipo de ayuda?",
-                    trigger: 'selectReact',
-                  },
-                  {
-                    id: 'selectReact',
-                    options:  [
-                      { value: 'Inicio', label: '¿Que es?', trigger: 'inicioreact' },
-                      { value: 'Características', label: 'Caracteristicas: JSX, ciclos de vida...', trigger: 'caracteristicasreact' },
-                      { value: 'Hooks', label: 'Hooks', trigger: 'hookreact' },
-                    ],
-                  },
-                  {
-                    id: 'inicioreact',
-                    message: 'Aqui tienes informacion sobre ¿Que es react?',
-                    trigger: '7',
-                  },
-                  {
-                    id: 'caracteristicasreact',
-                    message: 'Aqui tienes informacion sobre Caracteristicas de react',
-                    trigger: '7',
-                  },
-                  {
-                    id: 'hookreact',
-                    message: 'Aqui tienes informacion sobre Hook de react',
-                    trigger: '7',
-                  },
-
-                  {
-                    id: 'programacion',
-                    message: '¡Claro aqui tienes un enlace donde ver que es la programacion!',
-                    trigger: '7',
-                  },
-                  {
-                 
-                    id: "7",
-                    component: <WikiComponent />,
-                    asMessage: true,
-                    trigger: "preguntaVuelta"
-                 },
-                  {
-                    id: 'preguntaVuelta',
-                    message: '¿Necesitas Algo mas?',
-                    trigger: '8',
-                  },
-                  {
-                    id: '8',
-                    options:  [
-                      { value: 'yes', label: 'Si, necesito mas ayuda', trigger: '3' },
-                      { value: 'no', label: 'No gracias', trigger: 'finCHAT' },      
-                    ],
-                  },
+              {
+                id: 'ingresarDetallesConsulta',
+                message: '¿Cual es el motivo de la consulta? Añade los detalles que consideres necesarios.',
+                trigger: 'leerDetallesConsulta',
+              },
+              {
+                id: 'leerDetallesConsulta',
+                user: true,
+                trigger: 'ingresarTiempoConsulta',
+              },
+              {
+                id: 'ingresarTiempoConsulta',
+                message: '¿Desde hace cuanto tiempo el paciente presenta sintomas?',
+                trigger: 'leerTiempoConsulta',
+              },
+              {
+                id: 'leerTiempoConsulta',
+                user: true,
+                trigger: 'ingresarSintomasConsulta',
+              },
+              {
+                id: 'ingresarSintomasConsulta',
+                message: '¿Cual de los siguientes sintomas presenta el paciente?',
+                trigger: 'preguntarFiebre',
+              },
+              {
+                id: 'preguntarFiebre',
+                message: '¿Fiebre?',
+                trigger: 'fiebre',
+              },
+              {
+                id: 'fiebre',
+                options: [
+                  { value: 'Si', label: 'Si', trigger: 'preguntarTos' },
+                  { value: 'No', label: 'No', trigger: 'preguntarTos' },
+                ],
+              },
+              {
+                id: 'preguntarTos',
+                message: '¿Tos?',
+                trigger: 'tos',
+              },
+              {
+                id: 'tos',
+                options: [
+                  { value: 'Si', label: 'Si', trigger: 'preguntarDolorDeCabeza' },
+                  { value: 'No', label: 'No', trigger: 'preguntarDolorDeCabeza' },
+                ],
+              },
+              {
+                id: 'preguntarDolorDeCabeza',
+                message: '¿Dolor de cabeza?',
+                trigger: 'dolorDeCabeza',
+              },
+              {
+                id: 'dolorDeCabeza',
+                options: [
+                  { value: 'Si', label: 'Si', trigger: 'preguntarDolorDeGarganta' },
+                  { value: 'No', label: 'No', trigger: 'preguntarDolorDeGarganta' },
+                ],
+              },
+              {
+                id: 'preguntarDolorDeGarganta',
+                message: '¿Dolor de garganta?',
+                trigger: 'dolorDeGarganta',
+              },
+              {
+                id: 'dolorDeGarganta',
+                options: [
+                  { value: 'Si', label: 'Si', trigger: 'preguntarDolorMuscular' },
+                  { value: 'No', label: 'No', trigger: 'preguntarDolorMuscular' },
+                ],
+              }, 
+              {
+                id: 'preguntarDolorMuscular',
+                message: '¿Dolor muscular?',
+                trigger: 'dolorMuscular',
+              },
+              {
+                id: 'dolorMuscular',
+                options: [
+                  { value: 'Si', label: 'Si', trigger: 'preguntarCongestionNasal' },
+                  { value: 'No', label: 'No', trigger: 'preguntarCongestionNasal' },
+                ],
+              },
+              {
+                id: 'preguntarCongestionNasal',
+                message: '¿Congestión nasal?',
+                trigger: 'congestionNasal',
+              },
+              {
+                id: 'congestionNasal',
+                options: [
+                  { value: 'Si', label: 'Si', trigger: 'preguntarNausea' },
+                  { value: 'No', label: 'No', trigger: 'preguntarNausea' },
+                ],
+              },
+              {
+                id: 'preguntarNausea',
+                message: '¿Nausea?',
+                trigger: 'nausea',
+              },
+              {
+                id: 'nausea',
+                options: [
+                  { value: 'Si', label: 'Si', trigger: 'preguntarDiarrea' },
+                  { value: 'No', label: 'No', trigger: 'preguntarDiarrea' },
+                ],
+              },
+              {
+                id: 'preguntarDiarrea',
+                message: '¿Diarrea?',
+                trigger: 'diarrea',
+              },
+              {
+                id: 'diarrea',
+                options: [
+                  { value: 'Si', label: 'Si', trigger: 'preguntarFatiga' },
+                  { value: 'No', label: 'No', trigger: 'preguntarFatiga' },
+                ],
+              },
+              {
+                id: 'preguntarFatiga',
+                message: '¿Fatiga?',
+                trigger: 'fatiga',
+              },
+              {
+                id: 'fatiga',
+                options: [
+                  { value: 'Si', label: 'Si', trigger: 'ingresarAntecedentes' },
+                  { value: 'No', label: 'No', trigger: 'ingresarAntecedentes' },
+                ],
+              },
+              {
+                id: 'ingresarAntecedentes',
+                message: '¿El paciente tiene antecedentes médicos relevantes?',
+                trigger: 'antecedentes',
+              },
+              {
+                id: 'antecedentes',
+                options: [
+                  { value: 'Si', label: 'Si', trigger: 'preguntarAntecedentes' },
+                  { value: 'No', label: 'No', trigger: 'finCHAT' },
+                ],
+              },
+              {
+                id: 'preguntarAntecedentes',
+                message: 'Describa los antecedentes del paciente.',
+                trigger: 'leerAntecedentes',
+              },
+              {
+                id: 'leerAntecedentes',
+                user: true,
+                trigger: 'finCHAT',
+              },
               {
                 id: 'finCHAT',
-                message: "Estupendo,¡Ten un buen día!",
+                message: "Con esto hemos terminado el formulario del paciente. ¡Voy a guardar los datos!.",
                 end: true,
               },
             ]}
