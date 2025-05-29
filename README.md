@@ -22,7 +22,7 @@ cd app
 npm install
 npm install react-simple-chatbot
 npm install recharts
-
+npm install recharts date-fns
 ```
 
 3. Inicia el servidor de desarrollo:

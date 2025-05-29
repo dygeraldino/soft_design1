@@ -247,6 +247,24 @@ export default class MainChatBot extends Component {
                 id: 'guardarDatos',
                 component: <SaveForm steps={undefined} />, // steps serán inyectados automáticamente
                 asMessage: false,
+                trigger: 'next',
+              },
+              {
+                id: 'next',
+                message: "¿Deseas continuar con otro paciente?",
+                trigger: 'pregunta',
+                
+              },
+              {
+                id: 'pregunta',
+                options: [
+                  { value: 'Si', label: 'Si', trigger: 'intro' },
+                  { value: 'No', label: 'No', trigger: 'despedida' },
+                ],
+              },
+              {
+                id: 'despedida',
+                message: "Gracias por usar nuestro chatbot. ¡Hasta luego!",
                 end: true
               }
             ]}
