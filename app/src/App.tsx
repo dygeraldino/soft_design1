@@ -2,9 +2,11 @@ import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Header from "./components/Header";
 import Login from "./components/Login";
+import Dashboard from "./components/Dashboard"; // Importar el nuevo Dashboard
 import { useAuth } from "./context/AuthContext";
 
-const Dashboard = () => <h2>Bienvenido, estás autenticado</h2>;
+// Remover esta línea:
+// const Dashboard = () => <h2>Bienvenido, estás autenticado</h2>;
 
 const App: React.FC = () => {
   const { session } = useAuth();
