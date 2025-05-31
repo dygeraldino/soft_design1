@@ -2,18 +2,11 @@ import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Header from "./components/Header";
 import Login from "./components/Login";
+import Dashboard from "./components/Dashboard"; // Importar el nuevo Dashboard
 import { useAuth } from "./context/AuthContext";
-// @ts-ignore
-import MainChatBot from "./components/MainChatBot";
-import EstadisticasFormularios from "./components/Stadistics";
-import './App.css';
 
-const Dashboard = () => (
-  <div className="ChatBot" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-    <h2 style={{ marginBottom: "20px" }}>Bienvenido, estás autenticado</h2>
-    <MainChatBot />
-  </div>
-);
+// Remover esta línea:
+// const Dashboard = () => <h2>Bienvenido, estás autenticado</h2>;
 
 const App: React.FC = () => {
   const { session } = useAuth();
@@ -29,10 +22,8 @@ const App: React.FC = () => {
           </>
         ) : (
           <>
-            <Route path="/" element={<Navigate to="/dashboard" replace />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/estadisticas" element={<EstadisticasFormularios />} />
             <Route path="*" element={<Navigate to="/dashboard" replace />} />
+            <Route path="/dashboard" element={<Dashboard />} />
           </>
         )}
       </Routes>
