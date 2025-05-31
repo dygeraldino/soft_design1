@@ -1,19 +1,22 @@
 // src/components/Dashboard.tsx
-import React from "react";
+import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
+// @ts-ignore
+import MainChatBot from '../components/MainChatBot';
 
 const Dashboard: React.FC = () => {
   const { session } = useAuth();
+  const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
   const handleStatsClick = () => {
     // Aquí irá la navegación a estadísticas
     console.log("Navegando a estadísticas...");
-    
   };
 
-  const handleChatbotClick = () => {
-    // Aquí irá la lógica para abrir el chatbot
-    console.log("Abriendo chatbot...");
+
+
+  const handleCloseChatbot = () => {
+    setIsChatbotOpen(false);
   };
 
   return (
@@ -28,6 +31,11 @@ const Dashboard: React.FC = () => {
       </div>
 
       <div style={styles.actionsGrid}>
+              {/* Chatbot Modal */}
+      <MainChatBot 
+        isOpen={isChatbotOpen} 
+        onClose={handleCloseChatbot} 
+      />
         <button 
           style={styles.actionButton}
           onClick={handleStatsClick}
@@ -47,24 +55,6 @@ const Dashboard: React.FC = () => {
           </p>
         </button>
 
-        <button 
-          style={styles.actionButton}
-          onClick={handleChatbotClick}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'translateY(-4px)';
-            e.currentTarget.style.boxShadow = '0 8px 25px rgba(40, 167, 69, 0.3)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = '0 4px 15px rgba(40, 167, 69, 0.2)';
-          }}
-        >
-          <div style={styles.buttonIcon}>🤖</div>
-          <h3 style={styles.buttonTitle}>Asistente Médico</h3>
-          <p style={styles.buttonDescription}>
-            Chatea con tu asistente de diagnóstico IA
-          </p>
-        </button>
       </div>
 
       <div style={styles.quickStats}>

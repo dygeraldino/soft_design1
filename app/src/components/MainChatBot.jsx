@@ -39,7 +39,6 @@ export default class MainChatBot extends Component {
   render() {
     return (
       <div>
-        <h1>MainChatBot</h1>
         <ThemeProvider theme={DiseñoChat}>
           <ChatBot
             steps={[
