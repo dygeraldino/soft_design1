@@ -3,15 +3,13 @@ import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 // @ts-ignore
 import MainChatBot from '../components/MainChatBot';
+import { Link } from "react-router-dom";
+
 
 const Dashboard: React.FC = () => {
   const { session } = useAuth();
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
-  const handleStatsClick = () => {
-    // Aquí irá la navegación a estadísticas
-    console.log("Navegando a estadísticas...");
-  };
 
 
 
@@ -36,9 +34,11 @@ const Dashboard: React.FC = () => {
         isOpen={isChatbotOpen} 
         onClose={handleCloseChatbot} 
       />
-        <button 
-          style={styles.actionButton}
-          onClick={handleStatsClick}
+
+
+        <Link 
+          to="/statistics" 
+          style={{ ...styles.actionButton, textDecoration: 'none' }}
           onMouseEnter={(e) => {
             e.currentTarget.style.transform = 'translateY(-4px)';
             e.currentTarget.style.boxShadow = '0 8px 25px rgba(0, 123, 255, 0.3)';
@@ -53,7 +53,7 @@ const Dashboard: React.FC = () => {
           <p style={styles.buttonDescription}>
             Visualiza métricas y reportes de tus consultas
           </p>
-        </button>
+        </Link>
 
       </div>
 

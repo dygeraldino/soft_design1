@@ -4,9 +4,7 @@ import Header from "./components/Header";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard"; // Importar el nuevo Dashboard
 import { useAuth } from "./context/AuthContext";
-
-// Remover esta línea:
-// const Dashboard = () => <h2>Bienvenido, estás autenticado</h2>;
+import EstadisticasFormularios from "./components/Statistics";
 
 const App: React.FC = () => {
   const { session } = useAuth();
@@ -24,6 +22,7 @@ const App: React.FC = () => {
           <>
             <Route path="*" element={<Navigate to="/dashboard" replace />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/statistics" element={<EstadisticasFormularios />} />
           </>
         )}
       </Routes>
