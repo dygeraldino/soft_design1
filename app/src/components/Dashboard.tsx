@@ -10,10 +10,6 @@ const Dashboard: React.FC = () => {
   const { session } = useAuth();
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
-  const handleStatsClick = () => {
-    // Aquí irá la navegación a estadísticas
-    console.log("Navegando a estadísticas...");
-  };
 
 
 
